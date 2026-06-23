@@ -20,12 +20,11 @@
       --text: #e8e8e8;
       --text-muted: #888;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Montserrat', sans-serif;
       background: var(--dark);
       color: var(--text);
-      overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
 
@@ -839,8 +838,12 @@
     // ── REVEAL ON SCROLL ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.05 });
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+    // Fallback: garante que tudo fica visível mesmo se o observer falhar
+    setTimeout(() => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => el.classList.add('visible'));
+    }, 2500);
 
     // ── COUNTER ANIMATION ──
     const counterObserver = new IntersectionObserver((entries) => {
@@ -894,11 +897,4 @@
 
       // Highlight today
       document.querySelectorAll('.schedule-row').forEach(r => r.classList.remove('today-marker'));
-      const todayRow = document.getElementById(`row-${day}`);
-      if (todayRow) todayRow.classList.add('today-marker');
-
-      // Open/closed status
-      const daySchedule = schedule[day];
-      let isOpen = false;
-      if (daySchedule) {
-        cons
+      const todayRow = document.g
