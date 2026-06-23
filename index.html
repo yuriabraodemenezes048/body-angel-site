@@ -896,4 +896,54 @@
       const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
       const h = String(now.getHours()).padStart(2,'0');
       const m = String(now.getMinutes()).padStart(2,'0');
-      const s = String(now.getSeconds())
+      const s = String(now.getSeconds()).padStart(2,'0');
+      const clockEl = document.getElementById('clockTime');
+      const dateEl = document.getElementById('clockDate');
+      const badge = document.getElementById('statusBadge');
+      if (!clockEl || !dateEl || !badge) return;
+      clockEl.textContent = `${h}:${m}:${s}`;
+
+      const day = now.getDay();
+      const date = `${dayNames[day]}, ${now.getDate()} de ${monthNames[now.getMonth()]} · Brasília`;
+      dateEl.textContent = date;
+
+      // Highlight today
+      document.querySelectorAll('.schedule-row').forEach(r => r.classList.remove('today-marker'));
+      const todayRow = document.getElementById(`row-${day}`);
+      if (todayRow) todayRow.classList.add('today-marker');
+
+      // Open/closed status
+      const daySchedule = schedule[day];
+      let isOpen = false;
+      if (daySchedule) {
+        const totalMins = now.getHours() * 60 + now.getMinutes();
+        for (const [sh, sm, eh, em] of daySchedule.slots) {
+          if (totalMins >= sh*60+sm && totalMins < eh*60+em) { isOpen = true; break; }
+        }
+      }
+      badge.innerHTML = isOpen
+        ? `<span class="status-badge status-open"><span class="status-dot"></span>Aberto Agora</span>`
+        : `<span class="status-badge status-closed"><span class="status-dot"></span>Fechado</span>`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ── SMOOTH CARD ENTRANCE ──
+    document.querySelectorAll('.card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.08}s`;
+    });
+
+    // ── LOGO FALLBACK ──
+    const heroLogo = document.getElementById('heroLogo');
+    const navLogo = document.getElementById('navLogo');
+    if (heroLogo) {
+      heroLogo.onerror = function() {
+        this.parentElement.innerHTML = '<span style="font-size:5rem">🏋️</span>';
+      };
+    }
+    if (navLogo) {
+      navLogo.onerror = function() { this.style.display = 'none'; };
+    }
+  </script>
+</body>
+</html>
