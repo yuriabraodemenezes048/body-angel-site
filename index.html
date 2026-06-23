@@ -686,7 +686,7 @@
         <span class="section-label">Funcionamento</span>
         <h2 class="section-title">NOSSOS <span class="gold">HORÁRIOS</span></h2>
         <p class="section-lead">Estamos abertos de segunda a sexta com dois turnos para você se encaixar na sua rotina.</p>
-        <div class="clock-display" style="margin-top:2rem">
+        <div class="clock-display" style="margin-top:2rem; opacity:1 !important; transform:none !important; animation:none !important;">
           <div class="clock-time" id="clockTime">--:--:--</div>
           <div class="clock-date" id="clockDate">Carregando...</div>
           <div id="statusBadge"></div>
@@ -892,11 +892,8 @@
     const monthNames = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
     function updateClock() {
-      const now = new Date();
+      // Horário de Brasília (America/Sao_Paulo, UTC-3)
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
       const h = String(now.getHours()).padStart(2,'0');
       const m = String(now.getMinutes()).padStart(2,'0');
-      const s = String(now.getSeconds()).padStart(2,'0');
-      document.getElementById('clockTime').textContent = `${h}:${m}:${s}`;
-
-      const day = now.getDay();
-      const date = `${dayNames[day]}, ${now.getDate()} de ${monthNames[now.get
+      const s = String(now.getSeconds())
