@@ -470,19 +470,26 @@
 
     /* ── REVEAL ANIMATION ── */
     .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      opacity: 1; transform: translateY(0);
+      animation: revealUp 0.7s ease both;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-left.visible { opacity: 1; transform: translateX(0); }
-    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-right.visible { opacity: 1; transform: translateX(0); }
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; }
-    .delay-5 { transition-delay: 0.5s; }
+    .reveal-left {
+      opacity: 1; transform: translateX(0);
+      animation: revealLeft 0.7s ease both;
+    }
+    .reveal-right {
+      opacity: 1; transform: translateX(0);
+      animation: revealRight 0.7s ease both;
+    }
+    .reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; }
+    @keyframes revealUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes revealLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes revealRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
 
     /* ── KEYFRAMES ── */
     @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
@@ -892,9 +899,4 @@
       document.getElementById('clockTime').textContent = `${h}:${m}:${s}`;
 
       const day = now.getDay();
-      const date = `${dayNames[day]}, ${now.getDate()} de ${monthNames[now.getMonth()]}`;
-      document.getElementById('clockDate').textContent = date;
-
-      // Highlight today
-      document.querySelectorAll('.schedule-row').forEach(r => r.classList.remove('today-marker'));
-      const todayRow = document.g
+      const date = `${dayNames[day]}, ${now.getDate()} de ${monthNames[now.get
