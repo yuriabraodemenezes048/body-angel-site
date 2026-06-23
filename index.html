@@ -133,7 +133,7 @@
       animation: fadeInDown 0.9s ease 0.1s both;
     }
     .hero-logo-icon img {
-      width: clamp(180px, 30vw, 280px);
+      width: clamp(220px, 36vw, 340px);
       height: auto;
       filter: drop-shadow(0 0 40px rgba(212,160,23,0.4));
       transition: filter 0.3s;
@@ -655,9 +655,9 @@
           <p class="card-desc">A arte marcial das 8 armas. Aulas para adultos e crianças com foco em técnica, condicionamento e autodisciplina.</p>
         </div>
         <div class="card reveal delay-1">
-          <div class="card-icon">📊</div>
-          <div class="card-title">Avaliação Física</div>
-          <p class="card-desc">Avaliação completa de composição corporal e capacidades físicas para personalizar seu plano de treino e acompanhar sua evolução.</p>
+          <div class="card-icon">🥋</div>
+          <div class="card-title">Capoeira</div>
+          <p class="card-desc">Arte marcial brasileira que une luta, dança e música. Aulas para todas as idades com foco em coordenação, agilidade e cultura.</p>
         </div>
         <div class="card reveal delay-2">
           <div class="card-icon">👤</div>
@@ -901,35 +901,4 @@
       const daySchedule = schedule[day];
       let isOpen = false;
       if (daySchedule) {
-        const totalMins = now.getHours() * 60 + now.getMinutes();
-        for (const [sh, sm, eh, em] of daySchedule.slots) {
-          if (totalMins >= sh*60+sm && totalMins < eh*60+em) { isOpen = true; break; }
-        }
-      }
-      const badge = document.getElementById('statusBadge');
-      badge.innerHTML = isOpen
-        ? `<span class="status-badge status-open"><span class="status-dot"></span>Aberto Agora</span>`
-        : `<span class="status-badge status-closed"><span class="status-dot"></span>Fechado</span>`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // ── SMOOTH CARD ENTRANCE ──
-    document.querySelectorAll('.card').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.08}s`;
-    });
-
-    // ── LOGO FALLBACK ──
-    const heroLogo = document.getElementById('heroLogo');
-    const navLogo = document.getElementById('navLogo');
-    if (heroLogo) {
-      heroLogo.onerror = function() {
-        this.parentElement.innerHTML = '<span style="font-size:5rem">🏋️</span>';
-      };
-    }
-    if (navLogo) {
-      navLogo.onerror = function() { this.style.display = 'none'; };
-    }
-  </script>
-</body>
-</html>
+        cons
